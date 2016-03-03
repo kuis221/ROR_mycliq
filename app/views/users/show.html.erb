@@ -1,27 +1,28 @@
 <div class="jumbotron">
-<div class="container">
+	<div class="container">
 
-<div class="row">
+		<div class="row">
 
-<div class="col-md-4">
-<%= gravatar_tag @user.email, size: 200 %>
+			<div class="col-md-4">
+				<%= gravatar_tag @user.email, size: 200 %>
+			</div>
+
+			<div class="col-md-4">
+				<h3><%= @user.username %></h3>
+				<p>Age: <%= @user.age %></p>
+				<p>Gender: <%= @user.gender %></p>
+			</div>
+
+			<div class="col-md-4">
+				<h3>Who am I</h3>
+				<small><%= @user.bio %></small>
+			</div>
+
+		</div>
+
+	</div>
 </div>
 
-<div class="col-md-4">
-<h3><%= @user.username %></h3>
-<p>Age: <%= @user.age %></p>
-<p>Gender: <%= @user.gender %></p>
-</div>
-
-<div class="col-md-4">
-<h3>Who am I</h3>
-<small><%= @user.bio %></small>
-</div>
-
-</div>
-
-</div>
-</div>
 
 <div class="container">
 	<div class="row">
@@ -44,6 +45,10 @@
 	</div>
 	<!-- Post Zone -->
 	<div class="col-md-6">
+	<% if current_user && current_user == @user %>
+	<%= render "posts/form" %>
+	<% end %>
+	<%= render @posts %>
 	</div>
 	<!-- Profile Activity -->
 	<div class="col-md-3">
