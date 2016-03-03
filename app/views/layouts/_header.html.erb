@@ -1,3 +1,19 @@
+Skip to content
+This repository  
+Search
+Pull requests
+Issues
+Gist
+ @justbdigital
+ Watch 1
+  Star 5
+  Fork 5 stukio/stukbook
+ Code  Issues 0  Pull requests 0  Wiki  Pulse  Graphs
+Branch: master Find file Copy pathstukbook/app/views/layouts/_header.html.erb
+94573d2  on Mar 5, 2015
+ Tiago Martins Final touches before production
+0 contributors
+RawBlameHistory     42 lines (37 sloc)  1.85 KB
 <nav class="navbar navbar-inverse navbar-fixed-top">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -8,7 +24,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <%= link_to "Mycliq", root_path, class: "navbar-brand" %>
+      <%= link_to "Stukbook", root_path, class: "navbar-brand" %>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -20,14 +36,14 @@
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
-        <li><%= link_to "Timeline", activities_path %></li>
-        <li><%= link_to "People", users_path %></li>
         <% if current_user %>
+        <li><%= link_to "Timeline", activities_path %></li>
+        <li><%= link_to "People (#{request_count})", users_path %></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%= gravatar_tag current_user.email, size: 20 %><%= current_user.username %> <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li><%= link_to "Profile", user_path(current_user.username) %></li>
-            <li><a href="#">Friends</a></li>
+            <li><%= link_to "Friends", users_path(people: "friends") %></li>
             <li><%= link_to "Settings", edit_user_registration_path %></li>
             <li class="divider"></li>
             <li><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
