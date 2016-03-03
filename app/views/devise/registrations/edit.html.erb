@@ -5,6 +5,9 @@
 
   <div class="form-inputs">
     <%= f.input :username, required: true, autofocus: true %>
+      <%= f.input :age %>
+  <%= f.input :gender %>
+  <%= f.input :bio %>
     <%= f.input :email, required: true, autofocus: true %>
 
     <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
