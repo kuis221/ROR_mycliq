@@ -5,11 +5,13 @@
 <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "form-horizontal" }) do |f| %>
 
 <div class="col-md-5">
-  
+
   <%= f.error_notification %>
   <div class="form-group">
   <%= f.input :username, required: true, autofocus: true, input_html: {class: "form-control"} %>
-    <%= f.input :email, required: true, input_html: {class: "form-control"} %>
+  <%= f.input :first_name, required: true, input_html: {class: "form-control"} %>
+  <%= f.input :last_name, required: true, input_html: {class: "form-control"} %>
+  <%= f.input :email, required: true, input_html: {class: "form-control"} %>
   </div>
   <div class="form-group">
     <%= f.input :age, input_html: {class: "form-control"} %>
@@ -17,11 +19,15 @@
     <%= f.input :bio, input_html: {class: "form-control"} %>
   </div>
 
-<%= link_to "http://www.gravatar.com", target: "_blank" do %>
-<%= gravatar_tag current_user.email, size: 100 %>
-<% end %>
-<small>Click image to change</small>
-
+  <div class="form-group">
+    <% if resource.avatar.present? %>
+      <%= image_tag resource.avatar.url(:thumb), class: "image-preview" %>
+    <% else %>
+      <%= image_tag 'gravatar.jpg', class: "image-preview" %>
+    <% end %>
+    <%= f.input :avatar, as: :file %>
+    <small>Click image to change</small>
+  </div>
 </div>
 
 
@@ -38,7 +44,7 @@
     <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true, input_html: {class: "form-control"} %>
     </div>
 
-  
+
 
   <div class="form-group">
     <%= f.button :submit, "Update", class: "btn btn-primary btn-block" %>

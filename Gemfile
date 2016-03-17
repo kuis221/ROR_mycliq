@@ -34,6 +34,9 @@ gem 'public_activity'
 
 gem 'auto_html', '1.6.4'
 
+gem "paperclip", "~> 4.3"
+
+gem 'pry'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -48,7 +51,7 @@ group :development, :test do
   gem 'byebug'
 end
 
-group :production do 
+group :production do
 	gem 'pg'
 	gem 'rails_12factor'
 	gem 'unicorn'
