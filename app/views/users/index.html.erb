@@ -7,7 +7,6 @@
 <%= link_to "Pending (#{@pending_count})", users_path(people: "pending"), class: "btn btn-default #{'active' if params[:people] == 'pending'}" %>
 </div>
 </div>
-
 <div class="container">
 <div class="row">
 <%= render @users %>
