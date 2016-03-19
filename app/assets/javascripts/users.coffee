@@ -15,4 +15,9 @@ $(document).on 'ready page:load', ->
         return
       reader.readAsDataURL evt.files[0]
     return
+  $("#age").removeAttr('value')
+  $("#age").dateDropdowns({
+    submitFieldName: 'age',
+    submitFormat: "dd/mm/yyyy"
+  });
   return
