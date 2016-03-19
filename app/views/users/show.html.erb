@@ -1,64 +1,68 @@
 <div class="jumbotron">
-	<div class="container">
+  <div class="container">
 
-		<div class="row">
+    <div class="row">
 
-			<div class="col-md-4">
-				<%= gravatar_tag @user.email, size: 200 %>
-			</div>
+      <div class="col-md-4">
+        <% if @user.avatar.present? %>
+          <%= image_tag @user.avatar, width: 200 %>
+        <% else %>
+          <%= image_tag 'gravatar.jpg', width: 200 %>
+        <% end %>
+      </div>
 
-			<div class="col-md-4">
-				<h3><%= @user.username %></h3>
-				<p>Age: <%= @user.age %></p>
-				<p>Gender: <%= @user.gender %></p>
-			</div>
+      <div class="col-md-4">
+        <h3><%= @user.username %></h3>
+        <p>Age: <%= @user.age %></p>
+        <p>Gender: <%= @user.gender %></p>
+      </div>
 
-			<div class="col-md-4">
-				<h3>Who am I</h3>
-				<small><%= @user.bio %></small>
-			</div>
+      <div class="col-md-4">
+        <h3>Who am I</h3>
+        <small><%= @user.bio %></small>
+      </div>
 
-		</div>
+    </div>
 
-	</div>
+  </div>
 </div>
 
 
 <div class="container">
-	<div class="row">
-	<!-- Friend Zone -->
-	<div class="col-md-3">
-	<div class="panel panel-default">
-	<div class="panel-heading">Friends (<%= @user.active_friends.size %>)
-	</div>
-	<div class="panel-body">
+  <div class="row">
+  <!-- Friend Zone -->
+  <div class="col-md-3">
+  <div class="panel panel-default">
+  <div class="panel-heading">Friends (<%= @user.active_friends.size %>)
+  </div>
+  <div class="panel-body">
 
-	<% @user.active_friends.last(16).each do |user| %>
-	<%= link_to user_path(user.username) do %>
-		<%= gravatar_tag user.email, size: 40 %>
-	<% end %>
-	<% end %>
+  <% @user.active_friends.last(16).each do |user| %>
+  <%= link_to user_path(user.username) do %>
+    <%= gravatar_tag user.email, size: 40 %>
+  <% end %>
+  <% end %>
 
-	</div>
+  </div>
 
-	</div>
-	</div>
-	<!-- Post Zone -->
-	<div class="col-md-6">
-	<% if current_user && current_user == @user %>
-	<%= render "posts/form" %>
-	<% end %>
-	<%= render @posts %>
-	</div>
-	<!-- Profile Activity -->
-	<div class="col-md-3">
-		<div class="panel panel-default">
-		<div class="panel-heading">Recent Activity</div>
-		<div class="panel-body">
-			<%= render_activities(@activities) %>
-		</div>
-		</div>
-	</div>
+  </div>
+  </div>
+  <!-- Post Zone -->
+  <div class="col-md-6">
+  <% if current_user && current_user == @user %>
+  <%= render "posts/form" %>
+  <% end %>
+  <%= render @posts %>
+  </div>
+  <!-- Profile Activity -->
+  <div class="col-md-3">
+    <div class="panel panel-default">
+    <div class="panel-heading">Recent Activity</div>
+    <div class="panel-body">
+      <%= render_activities(@activities) %>
+    </div>
+    </div>
+  </div>
 
-	</div>
+  </div>
 </div>
