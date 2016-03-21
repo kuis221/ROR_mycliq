@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
- 
+
   get 'users/show'
 
   devise_for :users, controllers: {registrations: 'registrations'}
@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   root 'pages#home'
 
   resources :users, only: [:show, :index]
-  resources :friendships, only: [:create, :destroy, :accept] do 
-    member do 
+  resources :friendships, only: [:create, :destroy, :accept] do
+    member do
       put :accept
     end
   end

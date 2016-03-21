@@ -8,36 +8,35 @@
 
 <div class="container">
   <ul class="timeline">
-
   <% @activities.each_with_index do |activity| %>
-  <% unless activity.trackable_type == "Friendship" && activity.owner == current_user %>
-  <% if activity.trackable %>
-  <% if cycle('odd','even') == 'odd' %>
-  <li class="timeline-inverted">
-  <% else %>
-  <li>
+    <% unless activity.trackable_type == "Friendship" && activity.owner == current_user %>
+      <% if activity.trackable %>
+        <% if cycle('odd','even') == 'odd' %>
+          <li class="timeline-inverted">
+        <% else %>
+          <li>
+        <% end %>
+        <div class="timeline-badge">
+          <% if activity.owner.avatar.present? %>
+            <%= image_tag activity.owner.avatar, width: 55 %>
+          <% else %>
+            <%= image_tag 'gravatar.jpg', width: 55 %>
+          <% end %>
+        </div>
+        <div class="timeline-panel">
+        <div class="timeline-heading">
+          <h4 class="timeline-title"><%= link_to "#{activity.owner.first_name} #{activity.owner.last_name}", user_path(activity.owner.username) %></h4>
+          <p><small><%=  time_ago_in_words(activity.created_at)%> ago</small></p>
+        </div>
+        <div class="timeline-body">
+          <% case activity.trackable_type when "Post" %>
+            <p><%= raw(activity.trackable.content_html) %>
+          <% when "Friendship" %>
+            <%= link_to activity.owner.username, user_path(activity.owner.username) %> is now friends with <%= link_to activity.recipient.username, user_path(activity.recipient.username) %>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
   <% end %>
-  <div class="timeline-badge"><%= gravatar_tag activity.owner.email, size: 55 %></div>
-  <div class="timeline-panel">
-  <div class="timeline-heading">
-  <h4 class="timeline-title"><%= link_to activity.owner.username, user_path(activity.owner.username) %></h4>
-  <p><small><%=  time_ago_in_words(activity.created_at)%> ago</small></p>
-  </div>
-  <div class="timeline-body">
-  <% case activity.trackable_type when "Post" %>
-  <p><%= raw(activity.trackable.content_html) %>
-  <% when "Friendship" %>
-  <%= link_to activity.owner.username, user_path(activity.owner.username) %> is now friends with <%= link_to activity.recipient.username, user_path(activity.recipient.username) %>
-  <% end %>
-  </div>
-  </div>
-
-  <% end %>
-  <% end %>
-  <% end %>
-
   </ul>
-  <div class="row">
-    <%= render @users %>
-  </div>
 </div>
