@@ -1,10 +1,14 @@
 <div class="col-md-3">
 <div class="thumbnail">
 <%= link_to user_path(user.username) do %>
-	<%= gravatar_tag user.email, size: 100 %>
+  <% if user.avatar.present? %>
+    <%= image_tag user.avatar, width: 100 %>
+  <% else %>
+    <%= image_tag 'gravatar.jpg', width: 100 %>
+  <% end %>
 <% end %>
 <div class="caption">
-<h3><%= user.username %></h3>
+<h3><%= "#{user.first_name} #{user.last_name}" %></h3>
 <% if current_user %>
 <p><%= action_buttons(user)%></p>
 <% end %>

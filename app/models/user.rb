@@ -7,10 +7,18 @@ class User < ActiveRecord::Base
   validates_presence_of :username
   validates_uniqueness_of :username
 
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+
   has_many :friendships, dependent: :destroy
   has_many :inverse_friendships, class_name: "Friendship", foreign_key: "friend_id", dependent: :destroy
   has_many :posts, dependent: :destroy
 
+  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
+
+  validates_with AttachmentPresenceValidator, attributes: :avatar
+  validates_with AttachmentSizeValidator, attributes: :avatar, less_than: 1.megabytes
 
   def request_friendship(user_2)
   	self.friendships.create(friend: user_2)
