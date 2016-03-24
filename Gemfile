@@ -23,6 +23,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 gem 'simple_form'
 gem 'devise'
+gem 'devise_invitable', '~> 1.5.2'
 gem 'omniauth'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'

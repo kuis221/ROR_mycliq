@@ -2,7 +2,10 @@ Rails.application.routes.draw do
 
   get 'users/show'
 
-  devise_for :users, controllers: { registrations: 'registrations', omniauth_callbacks: 'omniauth_callbacks' }
+  devise_for :users, controllers: {
+    registrations: 'registrations',
+    omniauth_callbacks: 'omniauth_callbacks',
+    invitations: 'users/invitations' }
 
   get 'pages/home'
   root 'pages#home'

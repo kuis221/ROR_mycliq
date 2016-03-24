@@ -1,8 +1,8 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable, :omniauthable,
+  devise :database_authenticatable, :registerable, :recoverable,
+         :rememberable, :trackable, :validatable, :omniauthable, :invitable,
          omniauth_providers: [:facebook, :twitter]
 
   validates_presence_of :username
@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
   has_many :inverse_friendships, class_name: "Friendship", foreign_key: "friend_id", dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :authorizations, dependent: :destroy
+  has_many :invitations, dependent: :destroy, :class_name => 'User', :as => :invited_by
 
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
@@ -62,12 +63,22 @@ class User < ActiveRecord::Base
     return authorization.user if authorization
 
     email = auth.info.email || "#{auth.uid}@fromtwitter.com"
-    if user = User.find_by(email: email)
+    if (user = User.find_by(email: email)) && user.first_name.blank?
+      update_user_with_auth(auth, user)
+    elsif user = User.find_by(email: email)
       user.authorizations.create(provider: auth.provider, uid: auth.uid)
       user
     else
       create_user_with_auth(auth, email)
     end
+  end
+
+  def self.update_user_with_auth(auth, user)
+    first_name, last_name = auth.info.name.split("\s", 2)
+    user.update_attributes(first_name: first_name, last_name: last_name)
+    user.avatar = URI.parse(auth.info.image) if auth.info.image
+    user.authorizations.create(provider: auth.provider, uid: auth.uid)
+    user
   end
 
   def self.create_user_with_auth(auth, email)

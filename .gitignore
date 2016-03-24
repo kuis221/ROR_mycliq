@@ -16,3 +16,5 @@
 !/log/.keep
 /tmp
 /public/system/users/avatars/
+
+/config/initializers/app_env_vars.rb
