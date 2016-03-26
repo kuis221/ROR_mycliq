@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
          :rememberable, :trackable, :validatable, :omniauthable, :invitable,
          omniauth_providers: [:facebook, :twitter]
 
+  acts_as_messageable
+
   validates_presence_of :username
   validates_uniqueness_of :username
 
@@ -14,7 +16,7 @@ class User < ActiveRecord::Base
   has_many :inverse_friendships, class_name: "Friendship", foreign_key: "friend_id", dependent: :destroy
   has_many :posts, dependent: :destroy
   has_many :authorizations, dependent: :destroy
-  has_many :invitations, dependent: :destroy, :class_name => 'User', :as => :invited_by
+  has_many :invitations, dependent: :destroy, class_name: "User", as: :invited_by
 
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
@@ -56,6 +58,14 @@ class User < ActiveRecord::Base
 
   def friendship_relation(user_2)
     Friendship.where(user_id: [self.id,user_2.id], friend_id: [self.id,user_2.id]).first
+  end
+
+  def mailboxer_email(object)
+    email
+  end
+
+  def mailboxer_name
+    [first_name, last_name].compact.join(" ")
   end
 
   def self.find_for_oauth(auth)

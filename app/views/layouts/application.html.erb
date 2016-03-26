@@ -14,11 +14,17 @@
 	<%= message %>
 	</div>
 <% end %>
+
+<div class="page-header">
+  <h1><%= yield :page_header %></h1>
+</div>
+
 <%= yield %>
 
 <% if user_signed_in? %>
   <%= javascript_tag do %>
   $(document).ready(function() {
+
     $.ajaxSetup({ cache: true });
     $.getScript('//connect.facebook.net/en_US/sdk.js', function(){
       FB.init({
@@ -33,14 +39,21 @@
         },
         function(event) {
           var e = event
-          if((e != null) || (e == undefined)){
-
+          if(e != null){
             $("body").prepend('<div class="alert alert-info fade-in"><button class="close" data-dismiss="alert">x</button>Facebook invitation has been sent.</div>');
-
           }
         });
       });
     });
+
+    var invite = document.getElementById('invitation_email')
+    var info = document.getElementsByClassName("alert alert-info fade-in")
+
+    if(invite != undefined && !window.location.hash && info.length < 1) {
+        window.location = window.location + '#loaded';
+        window.location.reload();
+    }
+
   });
   <% end %>
 <% end %>
