@@ -21,11 +21,7 @@
   </div>
 
   <div class="form-group">
-    <% if resource.avatar.present? %>
-      <%= image_tag resource.avatar.url(:thumb), class: "image-preview" %>
-    <% else %>
-      <%= image_tag 'gravatar.jpg', class: "image-preview" %>
-    <% end %>
+    <%= image_tag resource.avatar.url(:thumb), class: "image-preview" %>
     <%= f.input :avatar, as: :file %>
     <small>Click image to change</small>
   </div>

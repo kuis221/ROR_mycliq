@@ -1,9 +1,5 @@
 <% conversation.participants.each do |participant| %>
   <% unless participant == current_user %>
-    <% if participant.avatar.present? %>
-      <%= image_tag participant.avatar, width: 30, title: participant.first_name, class: "img-rounded" %>
-    <% else %>
-      <%= image_tag "gravatar.jpg", width: 30, title: participant.first_name, class: "img-rounded" %>
-    <% end %>
+    <%= image_tag participant.avatar, width: 30, title: participant.first_name, class: "img-rounded" %>
   <% end %>
 <% end %>

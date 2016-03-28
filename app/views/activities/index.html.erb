@@ -17,11 +17,7 @@
           <li>
         <% end %>
         <div class="timeline-badge">
-          <% if activity.owner.avatar.present? %>
-            <%= image_tag activity.owner.avatar, width: 55 %>
-          <% else %>
-            <%= image_tag 'gravatar.jpg', width: 55 %>
-          <% end %>
+          <%= image_tag activity.owner.avatar, width: 55 %>
         </div>
         <div class="timeline-panel">
         <div class="timeline-heading">

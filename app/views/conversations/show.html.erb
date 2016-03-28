@@ -13,14 +13,10 @@
         <div class="media">
           <% message = receipt.message %>
           <div class="media-left">
-            <% if message.sender.avatar.present? %>
-              <%= image_tag message.sender.avatar, width: 30, title: message.sender.first_name, class: "img-rounded" %>
-            <% else %>
-              <%= image_tag "gravatar.jpg", width: 30, title: message.sender.first_name, class: "img-rounded" %>
-            <% end %>
+            <%= image_tag message.sender.avatar, width: 30, title: message.sender.mailboxer_name, class: "img-rounded" %>
           </div>
           <div class="media-body">
-            <h6 class="media-heading"><%= message.sender.first_name %>
+            <h6 class="media-heading"><%= message.sender.mailboxer_name %>
               says at <%= message.created_at.strftime("%-d %B %Y, %H:%M:%S") %></h6>
             <%= message.body %>
           </div>

@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   has_many :authorizations, dependent: :destroy
   has_many :invitations, dependent: :destroy, class_name: "User", as: :invited_by
 
-  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
+  has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/gravatar.jpg"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
   validates_with AttachmentSizeValidator, attributes: :avatar, less_than: 1.megabytes
