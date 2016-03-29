@@ -7,5 +7,6 @@
 </div>
 <div class="panel-body">
    <%= raw(post.content_html) %>
+   <%= image_tag post.photo, width: 100 unless post.photo.blank? %>
 </div>
 </div>

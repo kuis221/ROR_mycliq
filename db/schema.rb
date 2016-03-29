@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160328194359) do
+ActiveRecord::Schema.define(version: 20160329164044) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "trackable_id"
@@ -106,8 +106,12 @@ ActiveRecord::Schema.define(version: 20160328194359) do
     t.integer  "user_id"
     t.text     "content"
     t.text     "content_html"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
+    t.datetime "created_at",         null: false
+    t.datetime "updated_at",         null: false
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   create_table "users", force: :cascade do |t|

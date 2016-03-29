@@ -1,11 +1,10 @@
 <div class="jumbotron text-center">
-<h1>Timeline</h1>
-<div class="btn-group" role="group" aria-label="Default">
-<%= link_to "Everything", activities_path, class: "btn btn-default #{'active' unless params[:content]}" %>
-<%= link_to "Just Posts", activities_path(content: "posts"), class: "btn btn-default #{'active' if params[:content] == 'posts'}" %>
+  <h1>Timeline</h1>
+  <div class="btn-group" role="group" aria-label="Default">
+    <%= link_to "Everything", activities_path, class: "btn btn-default #{'active' unless params[:content]}" %>
+    <%= link_to "Just Posts", activities_path(content: "posts"), class: "btn btn-default #{'active' if params[:content] == 'posts'}" %>
+  </div>
 </div>
-</div>
-
 <div class="container">
   <ul class="timeline">
   <% @activities.each_with_index do |activity| %>
@@ -26,7 +25,8 @@
         </div>
         <div class="timeline-body">
           <% case activity.trackable_type when "Post" %>
-            <p><%= raw(activity.trackable.content_html) %>
+            <p><%= raw(activity.trackable.content_html) %></p>
+            <p><%= image_tag activity.trackable.photo, width: 100 unless activity.trackable.photo.blank? %></p>
           <% when "Friendship" %>
             <%= link_to activity.owner.username, user_path(activity.owner.username) %> is now friends with <%= link_to activity.recipient.username, user_path(activity.recipient.username) %>
           <% end %>
@@ -35,4 +35,9 @@
     <% end %>
   <% end %>
   </ul>
+  <div class="col-md-12">
+    <% if current_user %>
+      <%= render "posts/form" %>
+    <% end %>
+  </div>
 </div>

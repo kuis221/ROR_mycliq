@@ -18,7 +18,11 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :posts, only: [:create, :edit, :update, :destroy]
+  resources :posts, only: [:create, :edit, :update, :destroy] do
+    member do
+      get :remove_photo
+    end
+  end
   resources :activities, only: [:index]
 
   resources :conversations, only: [:index, :show, :destroy] do
