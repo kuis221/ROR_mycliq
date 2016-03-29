@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable, :recoverable,
+  devise :database_authenticatable, :registerable, :recoverable, :confirmable,
          :rememberable, :trackable, :validatable, :omniauthable, :invitable,
          omniauth_providers: [:facebook, :twitter]
 
@@ -66,43 +66,5 @@ class User < ActiveRecord::Base
 
   def mailboxer_name
     [first_name, last_name].compact.join(" ")
-  end
-
-  def self.find_for_oauth(auth)
-    authorization = Authorization.find_by(provider: auth.provider, uid: auth.uid.to_s)
-    return authorization.user if authorization
-
-    email = auth.info.email || "#{auth.uid}@fromtwitter.com"
-    if (user = User.find_by(email: email)) && user.first_name.blank?
-      update_user_with_auth(auth, user)
-    elsif user = User.find_by(email: email)
-      user.authorizations.create(provider: auth.provider, uid: auth.uid)
-      user
-    else
-      create_user_with_auth(auth, email)
-    end
-  end
-
-  def self.update_user_with_auth(auth, user)
-    first_name, last_name = auth.info.name.split("\s", 2)
-    user.update_attributes(first_name: first_name, last_name: last_name)
-    user.avatar = URI.parse(auth.info.image) if auth.info.image
-    user.authorizations.create(provider: auth.provider, uid: auth.uid)
-    user
-  end
-
-  def self.create_user_with_auth(auth, email)
-    first_name, last_name = auth.info.name.split("\s", 2)
-    username = SecureRandom.urlsafe_base64(nil, false)
-    password = Devise.friendly_token[0, 20]
-    user = User.create!(email: email,
-                        password: password,
-                        password_confirmation: password,
-                        username: username,
-                        first_name: first_name,
-                        last_name: last_name)
-    user.avatar = URI.parse(auth.info.image) if auth.info.image
-    user.authorizations.create(provider: auth.provider, uid: auth.uid)
-    user
   end
 end

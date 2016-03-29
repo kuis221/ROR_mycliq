@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: 'registrations',
     omniauth_callbacks: 'omniauth_callbacks',
-    invitations: 'users/invitations' }
+    invitations: 'users/invitations',
+    confirmations: 'confirmations' }
 
   get 'pages/home'
   root 'pages#home'

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160325203155) do
+ActiveRecord::Schema.define(version: 20160328194359) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "trackable_id"
@@ -140,8 +140,12 @@ ActiveRecord::Schema.define(version: 20160325203155) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
+    t.string   "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
   end
 
+  add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["invitation_token"], name: "index_users_on_invitation_token", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

@@ -55,6 +55,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'forgery'
   gem 'better_errors'
+  gem 'mailcatcher', '~> 0.6.1'
 end
 
 group :test do
