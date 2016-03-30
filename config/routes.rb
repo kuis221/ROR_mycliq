@@ -23,6 +23,13 @@ Rails.application.routes.draw do
       get :remove_photo
     end
   end
+
+  resources :events do
+    member do
+      get :remove_photo
+    end
+  end
+
   resources :activities, only: [:index]
 
   resources :conversations, only: [:index, :show, :destroy] do

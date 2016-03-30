@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   end
 
   def request_count
-  	current_user.pending_friend_requests_from.map(&:user).size
+    current_user.pending_friend_requests_from.map(&:user).size
   end
 
   def redirect_back_or(path)

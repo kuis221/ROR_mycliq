@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160329164044) do
+ActiveRecord::Schema.define(version: 20160330213205) do
 
   create_table "activities", force: :cascade do |t|
     t.integer  "trackable_id"
@@ -39,6 +39,25 @@ ActiveRecord::Schema.define(version: 20160329164044) do
   end
 
   add_index "authorizations", ["user_id"], name: "index_authorizations_on_user_id"
+
+  create_table "events", force: :cascade do |t|
+    t.integer  "user_id"
+    t.text     "description"
+    t.text     "description_html"
+    t.string   "title"
+    t.string   "location"
+    t.string   "background_image_file_name"
+    t.string   "background_image_content_type"
+    t.integer  "background_image_file_size"
+    t.datetime "background_image_updated_at"
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.boolean  "private",                       default: false, null: false
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
+  end
+
+  add_index "events", ["user_id"], name: "index_events_on_user_id"
 
   create_table "friendships", force: :cascade do |t|
     t.integer  "user_id"

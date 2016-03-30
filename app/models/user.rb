@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   has_many :friendships, dependent: :destroy
   has_many :inverse_friendships, class_name: "Friendship", foreign_key: "friend_id", dependent: :destroy
   has_many :posts, dependent: :destroy
+  has_many :events, dependent: :destroy
   has_many :authorizations, dependent: :destroy
   has_many :invitations, dependent: :destroy, class_name: "User", as: :invited_by
 
