@@ -18,6 +18,7 @@ class PostsController < ApplicationController
   end
 
   def update
+    params[:post].delete(:photo) if params[:post][:remove_image] != "1"
     if @post.update(post_params)
       respond_to do |format|
         format.html { redirect_to user_path(@post.user.username), notice: "Post Updated" }

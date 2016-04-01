@@ -3,10 +3,9 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 body {
-    padding-top: 70px;
+  padding-top: 70px;
 	padding-top: 50px;
 }
-
 
 .alert {
 	position: absolute;
@@ -34,3 +33,86 @@ body {
 .start-conversation {
   margin-top: 100px;
 }
+
+.event_preview {
+  position: relative;
+  overflow: hidden;
+  width: 60%;
+  height: 200px;
+  padding: 10px;
+  padding-left: 40px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  border-radius: 2px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+}
+
+.event_show img,
+.event_preview img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: auto;
+  opacity: 0.3;
+}
+
+.event_show {
+  position: relative;
+  overflow: hidden;
+  width: 751px;
+  height: 430px;
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 2px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+}
+
+.event_preview .event_preview_left img {
+  opacity: 1;
+  position: absolute;
+  top: 0;
+  left: 80%;
+  width: 120px;
+}
+
+.event_show .event_show_center img {
+  opacity: 1;
+  position: absolute;
+  top: 20%;
+  left: 70%;
+  width: 200px;
+}
+
+.text_on_image {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+
+.event_preview_left {
+  height: 90%;
+  width: 75%;
+}
+
+.event_show_center iframe,
+.text_on_image iframe {
+  width: 40%;
+  height: 50%;
+}
+
+.event_date_right {
+  position: absolute;
+  bottom: 20px;
+  right: 0;
+}
+
+.button-right {
+  float: right;
+}
+
+.text_on_image h2 {
+  text-align: center;
+}
+

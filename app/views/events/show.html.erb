@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="event_show">
+    <%= image_tag @event.background_image unless @event.background_image.blank? %>
+    <div class="col-md-3 button-right">
+      <%= button_to "Edit event", edit_event_path(@event), method: "get", class: "btn btn-primary btn-block" %>
+      <h4><%= @event.location %></h4>
+    </div>
+    <div class="text_on_image">
+      <h2><%= @event.title %></h2>
+      <div class="event_show_center"><%= raw(@event.description_html) %></div>
+      <div class="event_date_right">Time untill event <%=  distance_of_time_in_words(Time.now, @event.start_at) %></div>
+    </div>
+  </div>
+</div>

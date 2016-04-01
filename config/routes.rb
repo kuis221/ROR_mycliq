@@ -19,15 +19,12 @@ Rails.application.routes.draw do
   end
 
   resources :posts, only: [:create, :edit, :update, :destroy] do
-    member do
-      get :remove_photo
-    end
+    get :remove_photo, on: :member
   end
 
   resources :events do
-    member do
-      get :remove_photo
-    end
+    get :my, on: :collection
+    get :remove_background_image, on: :member
   end
 
   resources :activities, only: [:index]

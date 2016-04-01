@@ -1,5 +1,21 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:edit, :update, :destroy, :remove_background_image]
+  before_action :set_event, only: [:edit, :show, :update, :destroy, :remove_background_image]
+
+  def index
+    current_user_id = current_user.try(:id)
+    @page_header = "All events"
+    @events = Event.where("user_id = ? OR private = ?", current_user_id, false)
+                   .order(created_at: :desc)
+                   .paginate(page: params[:page], per_page: 3)
+    render :index
+  end
+
+  def my
+    @page_header = "My events"
+    @events = Event.where(user_id: current_user.id).order(created_at: :desc)
+                   .paginate(page: params[:page], per_page: 3)
+    render :index
+  end
 
   def new
     @event = current_user.events.new
@@ -9,9 +25,7 @@ class EventsController < ApplicationController
     params[:event].delete(:background_image) if params[:event][:remove_image] != "1"
     @event = current_user.events.new(event_params)
     if @event.save
-      respond_to do |format|
-        format.html {redirect_to :back, notice: "Event Created"}
-      end
+      redirect_to events_path, notice: "Event Created"
     else
       redirect_to :back, notice: @event.errors.full_messages.join(", ")
     end
@@ -21,19 +35,18 @@ class EventsController < ApplicationController
   end
 
   def update
+    params[:event].delete(:background_image) if params[:event][:remove_image] != "1"
     if @event.update(event_params)
-      respond_to do |format|
-        format.html { redirect_to user_path(@event.user.username), notice: "event Updated" }
-      end
+      redirect_to events_path, notice: "Event Updated"
     else
-      redirect_to event_path(@event), notice: "Something went wrong"
+      redirect_to :back, notice: @event.errors.full_messages.join(", ")
     end
   end
 
+  def show
+  end
+
   def destroy
-    respond_to do |format|
-      format.html { redirect_to user_path(@event.user.username), notice: "event Destroyed" }
-    end
   end
 
   def remove_background_image

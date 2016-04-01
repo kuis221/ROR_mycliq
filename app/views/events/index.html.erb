@@ -1,0 +1,16 @@
+<% page_header @page_header %>
+
+<div class="container">
+  <div class="col-md-3 button-right"><%= button_to "Create event", new_event_path, method: "get", class: "btn btn-primary btn-block" %></div>
+  <% @events.each_with_index do |event, index| %>
+    <div class="event_preview">
+      <%= image_tag event.background_image unless event.background_image.blank? %>
+      <div class="text_on_image">
+        <h4><%= link_to event.title, event_path(event) %></h4>
+        <div class="event_preview_left"><%= raw(event.description_html) %></div>
+        <div class="event_date_right">Time untill event <%=  distance_of_time_in_words(Time.now, event.start_at) %></div>
+      </div>
+    </div>
+  <% end %>
+  <div><%= will_paginate %></div>
+</div>
