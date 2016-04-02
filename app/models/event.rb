@@ -2,6 +2,7 @@ class Event < ActiveRecord::Base
   attr_reader :remove_image
 
   belongs_to :user
+  has_many :event_invitations, dependent: :destroy
 
   validates_presence_of :user_id
   validates_presence_of :title
@@ -17,5 +18,19 @@ class Event < ActiveRecord::Base
     youtube(width: "100%", height: 250, autoplay: false)
     link target: "_blank", rel: "nofollow"
     simple_format
+  end
+
+  class << self
+    def accepted_by(user)
+      joins(:event_invitations).where(event_invitations: { invitee_id: user.id, status: "accepted" }).uniq
+    end
+
+    def rejected_by(user)
+      joins(:event_invitations).where(event_invitations: { invitee_id: user.id, status: "rejected" }).uniq
+    end
+
+    def not_replied_by(user)
+      joins(:event_invitations).where(event_invitations: { invitee_id: user.id, status: "sent" }).uniq
+    end
   end
 end

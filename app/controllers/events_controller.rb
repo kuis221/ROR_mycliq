@@ -11,9 +11,23 @@ class EventsController < ApplicationController
   end
 
   def my
+    @new_count = Event.not_replied_by(current_user).count
+    @rejected_count = Event.rejected_by(current_user).count
+    @accepted_count = Event.accepted_by(current_user).count
+
     @page_header = "My events"
-    @events = Event.where(user_id: current_user.id).order(created_at: :desc)
-                   .paginate(page: params[:page], per_page: 3)
+
+    case params[:specify_my_events]
+    when "accepted"
+      @events = Event.accepted_by(current_user).order(created_at: :desc).paginate(page: params[:page], per_page: 3)
+    when "rejected"
+      @events = Event.rejected_by(current_user).order(created_at: :desc).paginate(page: params[:page], per_page: 3)
+    when "new"
+      @events = Event.not_replied_by(current_user).order(created_at: :desc).paginate(page: params[:page], per_page: 3)
+    else
+      @events = Event.where(user_id: current_user.id).order(created_at: :desc).paginate(page: params[:page], per_page: 3)
+    end
+
     render :index
   end
 
@@ -44,6 +58,7 @@ class EventsController < ApplicationController
   end
 
   def show
+    @acceptable_link = Event.not_replied_by(current_user).include?(@event)
   end
 
   def destroy

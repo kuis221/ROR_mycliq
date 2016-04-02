@@ -10,5 +10,5 @@ RSpec.describe Event, type: :model do
   it { is_expected.to validate_attachment_content_type(:background_image).
     allowing('image/png', 'image/gif').
     rejecting('text/plain', 'text/xml') }
-  it { is_expected.to validate_attachment_size(:background_image).less_than(1.megabytes) }
+  it { is_expected.to validate_attachment_size(:background_image).less_than(2.megabytes) }
 end

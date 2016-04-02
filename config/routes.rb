@@ -18,6 +18,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :event_invitations, only: [:create] do
+    member do
+      put :accept
+      put :reject
+    end
+  end
+
   resources :posts, only: [:create, :edit, :update, :destroy] do
     get :remove_photo, on: :member
   end

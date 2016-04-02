@@ -19,6 +19,9 @@ class User < ActiveRecord::Base
   has_many :authorizations, dependent: :destroy
   has_many :invitations, dependent: :destroy, class_name: "User", as: :invited_by
 
+  has_many :recieved_event_invitations, dependent: :destroy, class_name: "EventInvitation", foreign_key: "invitee_id"
+  has_many :event_invitations, dependent: :destroy
+
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/gravatar.jpg"
   validates_attachment_content_type :avatar, content_type: /\Aimage\/.*\Z/
 
