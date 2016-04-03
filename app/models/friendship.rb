@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: friendships
+#
+#  id          :integer          not null, primary key
+#  user_id     :integer
+#  friend_id   :integer
+#  state       :string           default("pending")
+#  friended_at :datetime
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
 class Friendship < ActiveRecord::Base
 include PublicActivity::Model		
 

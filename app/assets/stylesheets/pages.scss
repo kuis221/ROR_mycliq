@@ -52,8 +52,8 @@ body {
   padding: 10px;
   margin-bottom: 30px;
   float: right;
-  width: 30%;
-  height: 430px;
+  width: 25%;
+  height: 500px;
   border-radius: 2px;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
 }
@@ -77,8 +77,8 @@ body {
 .event_show {
   position: relative;
   overflow: hidden;
-  width: 90%;
-  height: 430px;
+  width: 100%;
+  height: 500px;
   padding: 10px;
   margin-top: 10px;
   border-radius: 2px;
@@ -93,10 +93,15 @@ body {
   width: 120px;
 }
 
+.event_show_center {
+  margin-left: 20px;
+  margin-top: 20px;
+}
+
 .event_show .event_show_center img {
   opacity: 1;
   position: absolute;
-  top: 20%;
+  top: 60%;
   left: 70%;
   width: 200px;
 }
@@ -113,10 +118,14 @@ body {
   width: 75%;
 }
 
-.event_show_center iframe,
 .text_on_image iframe {
-  width: 40%;
+  width: 70%;
   height: 50%;
+}
+
+.event_show_center iframe {
+  width: 40%;
+  height: 100%;
 }
 
 .event_date_right {
@@ -125,8 +134,20 @@ body {
   right: 0;
 }
 
-.button-right {
+.event_location_up {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.button-right,
+.right {
   float: right;
+}
+
+.event_map {
+  position: absolute;
+  right: 10%;
 }
 
 .text_on_image h2 {
@@ -134,5 +155,9 @@ body {
 }
 
 .page-header {
-  margin-top: 70px;
+  margin-top: 60px;
+}
+
+.sent_invitations {
+  margin-bottom: 50px;
 }

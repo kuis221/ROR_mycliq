@@ -1,16 +1,20 @@
-<div class="page-header"><h1>Event info</h1></div>
+<div class="page-header container">
+  <h2 class="col-md-10"><%= @event.title %></h2>
+  <% if current_user == @event.user %>
+    <div class="col-md-2 button-right"><%= button_to "Edit event", edit_event_path(@event), method: "get", class: "btn btn-primary btn-block" %></div>
+  <% end %>
+</div>
 <div class="container">
   <div class="event_main">
     <div class="event_show">
       <%= image_tag @event.background_image unless @event.background_image.blank? %>
-      <div class="col-md-3 button-right">
-        <% if current_user == @event.user %>
-          <%= button_to "Edit event", edit_event_path(@event), method: "get", class: "btn btn-primary btn-block" %>
-        <% end %>
-        <h4><%= @event.location %></h4>
-      </div>
       <div class="text_on_image">
-        <h2><%= @event.title %></h2>
+        <div class="event_location_up">
+          <h4><%= @event.location %></h4>
+          <div style='width: 300px;'>
+            <div id="map" style='width: 300px; height: 200px;'></div>
+          </div>
+        </div>
         <div class="event_show_center"><%= raw(@event.description_html) %></div>
         <div class="event_date_right">Time untill event <%=  distance_of_time_in_words(Time.now, @event.start_at) %></div>
       </div>

@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: event_invitations
+#
+#  id         :integer          not null, primary key
+#  user_id    :integer
+#  event_id   :integer
+#  invitee_id :integer
+#  status     :string           default("sent")
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class EventInvitation < ActiveRecord::Base
   belongs_to :user
   belongs_to :invitee, class_name: "User"

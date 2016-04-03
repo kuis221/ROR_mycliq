@@ -59,6 +59,11 @@ class EventsController < ApplicationController
 
   def show
     @acceptable_link = Event.not_replied_by(current_user).include?(@event)
+    @hash = Gmaps4rails.build_markers([@event]) do |event, marker|
+      marker.lat event.latitude
+      marker.lng event.longitude
+      marker.infowindow "<b>#{event.title} at #{event.start_at}</b>"
+    end
   end
 
   def destroy
