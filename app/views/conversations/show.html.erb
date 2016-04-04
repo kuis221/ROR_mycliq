@@ -1,32 +1,38 @@
-<div class="page-header container"><h1>Conversation</h1></div>
-<div class="container">
-  <p>Chatting with
-    <%= render "conversations/participants", conversation: @conversation %>
-  </p>
-  <div class="panel panel-default">
-    <div class="panel-heading"><%= @conversation.subject %></div>
-    <div class="panel-body">
-      <div class="messages">
-        <% @conversation.receipts_for(current_user).each do |receipt| %>
-          <div class="media">
-            <% message = receipt.message %>
-            <div class="media-left">
-              <%= image_tag message.sender.avatar, width: 30, title: message.sender.mailboxer_name, class: "img-rounded" %>
+<div class="page-section colord text-center">
+  <h2>Conversation</h2>
+</div>
+<section id="aboutUs">
+  <div class="container">
+    <div class="row feature design">
+    <p>Chatting with
+      <%= render "conversations/participants", conversation: @conversation %>
+    </p>
+    <div class="panel panel-default">
+      <div class="panel-heading"><%= @conversation.subject %></div>
+      <div class="panel-body">
+        <div class="messages">
+          <% @conversation.receipts_for(current_user).each do |receipt| %>
+            <div class="media">
+              <% message = receipt.message %>
+              <div class="media-left">
+                <%= image_tag message.sender.avatar, width: 30, title: message.sender.mailboxer_name, class: "img-rounded" %>
+              </div>
+              <div class="media-body">
+                <h6 class="media-heading"><%= message.sender.mailboxer_name %>
+                  says at <%= message.created_at.strftime("%-d %B %Y, %H:%M:%S") %></h6>
+                <%= message.body %>
+              </div>
             </div>
-            <div class="media-body">
-              <h6 class="media-heading"><%= message.sender.mailboxer_name %>
-                says at <%= message.created_at.strftime("%-d %B %Y, %H:%M:%S") %></h6>
-              <%= message.body %>
-            </div>
-          </div>
-        <% end %>
+          <% end %>
+        </div>
       </div>
     </div>
-  </div>
-  <%= form_tag reply_conversation_path(@conversation), method: :post do %>
-    <div class="form-group">
-      <%= text_area_tag "body", nil, cols: 3, class: "form-control", placeholder: "enter your message", required: true %>
+    <%= form_tag reply_conversation_path(@conversation), method: :post do %>
+      <div class="form-group">
+        <%= text_area_tag "body", nil, cols: 3, class: "form-control wow fadeInUp black_text", placeholder: "enter your message", required: true %>
+      </div>
+      <%= submit_tag "Send Your Reply", class: "btn btn-default" %>
+    <% end %>
     </div>
-    <%= submit_tag "Send Your Reply", class: "btn btn-primary" %>
-  <% end %>
-</div>
+  </div>
+</section>

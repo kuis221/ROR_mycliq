@@ -1,30 +1,54 @@
-<div class="page-header container"><h1>Event details</h1></div>
-<div class="row">
-  <div class="col-md-6">
-    <%= simple_form_for(@event, html: {class: "form-horizontal"}) do |f| %>
-      <%= f.error_notification %>
-      <div class="form-group">
-        <%= f.input :title, required: true, autofocus: true, label: false, placeholder: "Event title", input_html: {class: "form-control"} %>
-        <br>
-        <%= f.input :location, required: false, label: false, placeholder: "Location", input_html: {class: "form-control"} %>
-        <br>
-        <%= f.input :start_at, required: false, label: "Starts", input_html: {class: "form-control"} %>
-        <%= f.input :end_at, required: false, label: "Ends", input_html: {class: "form-control"} %>
-        <br>
-        <%= image_tag @event.background_image, width: 50 unless @event.background_image.blank? %>
-        <%= f.input :background_image, as: :file %>
-        <%= f.input :remove_image, as: :boolean, required: false, label: "Save chosen background_image", :input_html => { :checked => true } %>
-        <% if @event.persisted? %>
-          <%= link_to "Remove existing background_image", remove_background_image_event_path %>
-        <% end %>     
-        <br>
-        <%= f.input :description, required: true, label: "Event description", placeholder: "can add formatted text, links, video", input_html: {class: "form-control"} %>
-        <br>
-        <%= f.input :private, required: false, label: "Private event" %>
+<section id="contactUs" class="contact-parlex">
+  <div class="parlex-back">
+    <div class="container">
+      <div class="row">
+        <div class="heading text-center"> 
+          <h2>Event details</h2>
+        </div>
       </div>
-      <div class="form-group">
-       <%= f.button :submit, "Make event live!", class: "btn btn-primary btn-block" %>
+      <div class="row mrgn30">
+        <div id="contactfrm">
+          <%= simple_form_for(@event, html: {class: "form-horizontal", id: "contact-form"}) do |f| %>
+          <%= f.error_notification %>
+            <div class="col-sm-12">
+              <div class="form-group">
+                <%= f.input :title, required: true, autofocus: true, label: false, placeholder: "Event title", input_html: { class: "form-control wow fadeInUp", id: "title"} %>
+              </div>
+              <div class="form-group">
+                <%= f.input :location, required: false, label: false, placeholder: "Location", input_html: { class: "form-control wow fadeInUp", id: "Location"} %>
+              </div>
+              <div class="form-group">
+                <%= f.input :start_at, required: false, label: "Starts", input_html: { class: "form-control wow fadeInUp", id: "Starts"} %>
+              </div>
+              <div class="form-group">
+                <%= f.input :end_at, required: false, label: "Ends", input_html: { class: "form-control wow fadeInUp", id: "Ends"} %>
+              </div>
+
+              <div class="form-group">
+                <%= image_tag @event.background_image, width: 50 unless @event.background_image.blank? %>
+              </div>
+              <div class="form-group">
+                <%= f.input :background_image, as: :file %>
+              </div>
+              <div class="form-group">
+                <%= f.input :remove_image, as: :boolean, required: false, label: "Save chosen background_image", input_html: { checked: true, class: "form-control wow fadeInUp", id: "remove_background_image"} %>
+              </div>
+              <% if @event.persisted? %>
+                <%= link_to "Remove existing background_image", remove_background_image_event_path %>
+              <% end %>     
+              <div class="form-group">
+                <%= f.input :description, required: true, label: "Event description", placeholder: "can add formatted text, links, video", input_html: { class: "form-control wow fadeInUp", id: "description"} %>
+              </div>
+              <div class="form-group">
+                <%= f.input :private, required: false, label: "Private event", input_html: {class: "form-control wow fadeInUp", id: "private" } %>
+              </div>          
+              <div class="form-group">
+                <%= f.button :submit, "Make event live!", class: "btn btn-success wow fadeInUp col-sm-12" %>
+              </div>              
+            </div>
+          <% end %>
+        </div>  
       </div>
-    <% end %>
+    </div>
   </div>
-</div>
+</section>

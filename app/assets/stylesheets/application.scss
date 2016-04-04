@@ -16,3 +16,26 @@
  */
 
 @import 'chosen';
+@import "font-awesome";
+
+html {
+   height: 100%;
+ }
+
+ * html body {
+   height: 100%;
+ }
+
+body {
+  min-height: 100%;
+}
+
+.contact-parlex,
+.container,
+#aboutUs {
+  min-height: 100%;
+}
+
+.black_text {
+  color: black;
+}

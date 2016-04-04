@@ -35,7 +35,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def birthday_fields_empty?
-    params[:age_][:year].blank? || params[:age_][:month].blank? || params[:age_][:day].blank?
+    !params[:age_] || params[:age_][:year].blank? || params[:age_][:month].blank? || params[:age_][:day].blank?
   end
 
   def get_age

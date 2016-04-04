@@ -3,13 +3,12 @@
 
   <div class="btn-group-vertical pull-right">
     <% if conversation.is_trashed?(current_user) %>
-      <%= link_to "Restore", restore_conversation_path(conversation), class: "btn btn-xs btn-info", method: :post %>
+      <p><%= link_to "Restore", restore_conversation_path(conversation), method: :post %></p>
     <% else %>
-      <%= link_to "Move to trash", conversation_path(conversation), class: "btn btn-xs btn-danger", method: :delete,
-                  data: {confirm: "Are you sure?"} %>
+      <p><%= link_to "Move to trash", conversation_path(conversation), method: :delete,
+                  data: {confirm: "Are you sure?"} %></p>
       <% if conversation.is_unread?(current_user) && @box == "inbox" %>
-        <%= link_to "Mark as read", mark_as_read_conversation_path(conversation),
-                    class: "btn btn-xs btn-info", method: :post %>
+        <p><%= link_to "Mark as read", mark_as_read_conversation_path(conversation), method: :post %></p>
       <% end %>
     <% end %>
   </div>

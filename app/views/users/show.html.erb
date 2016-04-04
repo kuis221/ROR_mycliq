@@ -41,7 +41,7 @@
       </div>
       <% if current_user && current_user == @user %>
         <p><%= link_to "Send invitation via email", new_user_invitation_path %><%= "   (#{@user.invitations.count} sent)" %></p>
-        <button id="invitation_email" class="btn btn-primary btn-block">Invite your Facebook friends</button>
+        <button id="invitation_email" class="btn btn-default">Invite Facebook friends</button>
       <% end %>
     </div>
     <!-- Post Zone -->

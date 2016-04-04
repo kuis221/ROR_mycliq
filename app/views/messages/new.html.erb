@@ -1,18 +1,34 @@
-<div class="page-header container"><h1>Start Conversation</h1></div>
-<div class="container">
-  <%= form_tag messages_path, method: :post do %>
-    <div class="form-group">
-      <%= label_tag "message[subject]", "Subject" %>
-      <%= text_field_tag "message[subject]", nil, class: "form-control", required: true %>
+<section id="contactUs" class="contact-parlex">
+  <div class="parlex-back">
+    <div class="container">
+      <div class="row">
+        <div class="heading text-center"> 
+          <h2>Start Conversation</h2>
+        </div>
+      </div>
+      <div class="row mrgn30">
+        <div id="contactfrm">
+          <%= form_tag messages_path, method: :post, class: "form-horizontal" do %>
+            <div class="col-sm-12">
+              <div class="form-group">
+                <%= label_tag "message[subject]", "Subject" %>
+                <%= text_field_tag "message[subject]", nil, class: "form-control wow fadeInUp", required: true %>
+              </div>
+              <div class="form-group">
+                <%= label_tag "message[body]", "Message" %>
+                <%= text_area_tag "message[body]", nil, cols: 3, class: "form-control wow fadeInUp", required: true %>
+              </div>
+              <div class="form-group">
+                <%= label_tag "recipients", "Choose recipients" %>
+                <%= select_tag "recipients", recipients_options(@chosen_recipient), multiple: true, class: "form-control wow fadeInUp chosen-it" %>
+              </div>
+              <div class="form-group">
+                <%= submit_tag "Send", class: "btn btn-success wow fadeInUp col-sm-12" %>
+              </div>              
+            </div>
+          <% end %>
+        </div>  
+      </div>
     </div>
-    <div class="form-group">
-      <%= label_tag "message[body]", "Message" %>
-      <%= text_area_tag "message[body]", nil, cols: 3, class: "form-control", required: true %>
-    </div>
-    <div class="form-group">
-      <%= label_tag "recipients", "Choose recipients" %>
-      <%= select_tag "recipients", recipients_options(@chosen_recipient), multiple: true, class: "form-control chosen-it" %>
-    </div>
-    <%= submit_tag "Send", class: "btn btn-primary" %>
-  <% end %>
-</div>
+  </div>
+</section>
