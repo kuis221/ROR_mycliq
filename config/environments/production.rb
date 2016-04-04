@@ -23,7 +23,7 @@ Rails.application.configure do
     authentication: :plain,
     enable_starttls_auto: true
   }
-
+  config.action_mailer.default_url_options = { host: 'mycliq.herokuapp.com' }
   config.action_mailer.delivery_method = :smtp
 
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
