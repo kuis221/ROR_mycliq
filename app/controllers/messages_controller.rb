@@ -6,9 +6,13 @@ class MessagesController < ApplicationController
   end
 
   def create
-    recipients = User.where(username: params["recipients"].map { |p| p.split.last.gsub(/^\(+|\)+$/, "") })
-    conversation = current_user.send_message(recipients, params[:message][:body], params[:message][:subject]).conversation
-    flash[:success] = "Message has been sent!"
-    redirect_to conversation_path(conversation)
+    if !params["recipients"]
+      redirect_to :back, notice: "Select recipients"
+    else
+      recipients = User.where(username: params["recipients"].map { |p| p.split.last.gsub(/^\(+|\)+$/, "") })
+      conversation = current_user.send_message(recipients, params[:message][:body], params[:message][:subject]).conversation
+      flash[:success] = "Message has been sent!"
+      redirect_to conversation_path(conversation)
+    end
   end
 end
