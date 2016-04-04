@@ -16,3 +16,7 @@
 !/log/.keep
 /tmp
 /public/system/users/avatars/
+/public/system/posts/photos/
+/public/system/events/background_images/
+
+/config/initializers/app_env_vars.rb

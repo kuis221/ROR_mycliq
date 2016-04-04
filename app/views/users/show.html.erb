@@ -1,14 +1,9 @@
 <div class="jumbotron">
   <div class="container">
-
     <div class="row">
 
       <div class="col-md-4">
-        <% if @user.avatar.present? %>
-          <%= image_tag @user.avatar, width: 200 %>
-        <% else %>
-          <%= image_tag 'gravatar.jpg', width: 200 %>
-        <% end %>
+        <%= image_tag @user.avatar, width: 200 %>
       </div>
 
       <div class="col-md-4">
@@ -20,49 +15,50 @@
       <div class="col-md-4">
         <h3>Who am I</h3>
         <small><%= @user.bio %></small>
+        <% unless current_user == @user %>
+          <%= link_to "Send a message to #{@user.mailboxer_name}", new_message_path(to: @user.id), class: 'btn btn-default btn-sm' %>
+        <% end %>
       </div>
 
     </div>
-
   </div>
 </div>
 
-
 <div class="container">
   <div class="row">
-  <!-- Friend Zone -->
-  <div class="col-md-3">
-  <div class="panel panel-default">
-  <div class="panel-heading">Friends (<%= @user.active_friends.size %>)
-  </div>
-  <div class="panel-body">
-
-  <% @user.active_friends.last(16).each do |user| %>
-  <%= link_to user_path(user.username) do %>
-    <%= gravatar_tag user.email, size: 40 %>
-  <% end %>
-  <% end %>
-
-  </div>
-
-  </div>
-  </div>
-  <!-- Post Zone -->
-  <div class="col-md-6">
-  <% if current_user && current_user == @user %>
-  <%= render "posts/form" %>
-  <% end %>
-  <%= render @posts %>
-  </div>
-  <!-- Profile Activity -->
-  <div class="col-md-3">
-    <div class="panel panel-default">
-    <div class="panel-heading">Recent Activity</div>
-    <div class="panel-body">
-      <%= render_activities(@activities) %>
+    <!-- Friend Zone -->
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">Friends (<%= @user.active_friends.size %>)
+        </div>
+        <div class="panel-body">
+          <% @user.active_friends.last(16).each do |user| %>
+            <%= link_to user_path(user.username) do %>
+              <%= gravatar_tag user.email, size: 40 %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+      <% if current_user && current_user == @user %>
+        <p><%= link_to "Send invitation via email", new_user_invitation_path %><%= "   (#{@user.invitations.count} sent)" %></p>
+        <button id="invitation_email" class="btn btn-primary btn-block">Invite your Facebook friends</button>
+      <% end %>
     </div>
+    <!-- Post Zone -->
+    <div class="col-md-6">
+      <% if current_user && current_user == @user %>
+        <%= render "posts/form" %>
+      <% end %>
+      <%= render @posts %>
     </div>
-  </div>
-
+    <!-- Profile Activity -->
+    <div class="col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-heading">Recent Activity</div>
+        <div class="panel-body">
+          <%= render_activities(@activities) %>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

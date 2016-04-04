@@ -1,0 +1,30 @@
+<div class="page-header container"><h1>Event details</h1></div>
+<div class="row">
+  <div class="col-md-6">
+    <%= simple_form_for(@event, html: {class: "form-horizontal"}) do |f| %>
+      <%= f.error_notification %>
+      <div class="form-group">
+        <%= f.input :title, required: true, autofocus: true, label: false, placeholder: "Event title", input_html: {class: "form-control"} %>
+        <br>
+        <%= f.input :location, required: false, label: false, placeholder: "Location", input_html: {class: "form-control"} %>
+        <br>
+        <%= f.input :start_at, required: false, label: "Starts", input_html: {class: "form-control"} %>
+        <%= f.input :end_at, required: false, label: "Ends", input_html: {class: "form-control"} %>
+        <br>
+        <%= image_tag @event.background_image, width: 50 unless @event.background_image.blank? %>
+        <%= f.input :background_image, as: :file %>
+        <%= f.input :remove_image, as: :boolean, required: false, label: "Save chosen background_image", :input_html => { :checked => true } %>
+        <% if @event.persisted? %>
+          <%= link_to "Remove existing background_image", remove_background_image_event_path %>
+        <% end %>     
+        <br>
+        <%= f.input :description, required: true, label: "Event description", placeholder: "can add formatted text, links, video", input_html: {class: "form-control"} %>
+        <br>
+        <%= f.input :private, required: false, label: "Private event" %>
+      </div>
+      <div class="form-group">
+       <%= f.button :submit, "Make event live!", class: "btn btn-primary btn-block" %>
+      </div>
+    <% end %>
+  </div>
+</div>

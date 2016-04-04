@@ -1,0 +1,27 @@
+<div class="page-header container"><h1><%= @page_header %></h1></div>
+<div class="container">
+  <div class="col-md-8">
+    <% if @page_header == "My events" %>
+      <div class="btn-group" role="group" aria-label="Default Button Groups">
+        <%= link_to "Accepted (#{@accepted_count})", my_events_path(specify_my_events: "accepted"), class: "btn btn-default #{'active' if params[:specify_my_events] == 'accepted'}" %>
+        <%= link_to "Rejected(#{@rejected_count})", my_events_path(specify_my_events: "rejected"), class: "btn btn-default #{'active' if params[:specify_my_events] == 'rejected'}" %>
+        <%= link_to "New invitations (#{@new_count})", my_events_path(specify_my_events: "new"), class: "btn btn-default #{'active' if params[:specify_my_events] == 'new'}" %>
+        <%= link_to "My events", my_events_path, class: "btn btn-default #{'active' unless params[:specify_my_events]}" %>
+      </div>
+    <% end %>
+    <% @events.each_with_index do |event, index| %>
+      <div class="event_preview">
+        <%= image_tag event.background_image unless event.background_image.blank? %>
+        <div class="text_on_image">
+          <h4><%= link_to event.title, event_path(event) %></h4>
+          <div class="event_preview_left"><%= raw(event.description_html) %></div>
+          <div class="event_date_right">Time untill event <%=  distance_of_time_in_words(Time.now, event.start_at) %></div>
+        </div>
+      </div>
+    <% end %>
+    <div><%= will_paginate %></div>
+  </div>
+  <div class="col-md-4">
+    <div class="button-right col-md-6"><%= button_to "Create event", new_event_path, method: "get", class: "btn btn-primary btn-block" %></div>
+  </div>
+</div>

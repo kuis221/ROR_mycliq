@@ -2,7 +2,11 @@ Rails.application.routes.draw do
 
   get 'users/show'
 
-  devise_for :users, controllers: {registrations: 'registrations'}
+  devise_for :users, controllers: {
+    registrations: 'registrations',
+    omniauth_callbacks: 'omniauth_callbacks',
+    invitations: 'users/invitations',
+    confirmations: 'confirmations' }
 
   get 'pages/home'
   root 'pages#home'
@@ -14,8 +18,36 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :posts, only: [:create, :edit, :update, :destroy]
+  resources :event_invitations, only: [:create] do
+    member do
+      put :accept
+      put :reject
+    end
+  end
+
+  resources :posts, only: [:create, :edit, :update, :destroy] do
+    get :remove_photo, on: :member
+  end
+
+  resources :events do
+    get :my, on: :collection
+    get :remove_background_image, on: :member
+  end
+
   resources :activities, only: [:index]
+
+  resources :conversations, only: [:index, :show, :destroy] do
+    member do
+      post :reply
+      post :restore
+      post :mark_as_read
+    end
+    collection do
+      delete :empty_trash
+    end
+  end
+
+  resources :messages, only: [:new, :create]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
