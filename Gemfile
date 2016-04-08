@@ -11,7 +11,6 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
-gem 'jquery-turbolinks'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -35,12 +34,14 @@ gem 'gravatarify', '~> 3.0.0'
 gem 'public_activity'
 gem 'auto_html', '1.6.4'
 gem 'paperclip', '~> 4.3'
+gem 'aws-sdk', '< 2.0'
 gem 'pry'
 gem 'mailboxer'
 gem 'chosen-rails'
 gem 'geocoder'
 gem 'annotate'
 gem 'gmaps4rails'
+gem 'font-awesome-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

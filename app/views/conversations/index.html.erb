@@ -1,23 +1,27 @@
-<div class="page-header container"><h1>Your conversations</h1></div>
-<div class="container">
-  <div class="row">
-    <div class="col-sm-3">
-      <ul class="nav nav-pills nav-stacked">
-        <%= mailbox_section "inbox", @box %>
-        <%= mailbox_section "sent", @box %>
-        <%= mailbox_section "trash", @box %>
-      </ul>
-      <p class="start-conversation"><%= link_to "Start new conversation", new_message_path, class: "btn btn-lg btn-primary" %></p>
-    </div>
-    <div class="col-sm-9">
-      <% if @box == "trash" %>
-        <p><%= link_to "Empty trash", empty_trash_conversations_path, class: "btn btn-danger", method: :delete,
-                       data: {confirm: "Are you sure?"} %></p>
-      <% end %>
-      <ul class="list-group">
-        <%= render partial: "conversations/conversation", collection: @conversations %>
-      </ul>
-      <%= will_paginate %>
+<div class="page-section colord text-center">
+  <h2><%= "Your conversations (#{@box})" %></h2>
+</div>
+<section id="aboutUs">
+  <div class="container">
+    <div class="row feature design">
+      <div class="col-sm-3">
+        <ul class="nav">
+          <%= mailbox_section "inbox", @box, class: bold_box("inbox", @box) %>
+          <%= mailbox_section "sent", @box, class: bold_box("sent", @box) %>
+          <%= mailbox_section "trash", @box, class: bold_box("trash", @box) %>
+        </ul>
+        <p class="start-conversation"><%= link_to "Start new conversation", new_message_path, class: "btn btn- btn-default" %></p>
+      </div>
+      <div class="col-sm-9">
+        <% if @box == "trash" %>
+          <p><%= link_to "Empty trash", empty_trash_conversations_path, method: :delete,
+                         data: {confirm: "Are you sure?"} %></p>
+        <% end %>
+        <ul class="list-group">
+          <%= render partial: "conversations/conversation", collection: @conversations %>
+        </ul>
+        <%= will_paginate %>
+      </div>
     </div>
   </div>
-</div>
+</section>

@@ -9,6 +9,10 @@ module ConversationsHelper
     conversation.is_unread?(user) && (box == "inbox") ? "bold-unread" : "readed"
   end
 
+  def bold_box(active, box)
+    active == box  ? "bold-unread" : "readed"
+  end
+
   def unread_messages_count
     # how to get the number of unread messages for the current user
     # using mailboxer

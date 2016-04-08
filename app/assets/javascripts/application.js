@@ -13,8 +13,16 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
-//= require turbolinks
-//= require jquery.turbolinks
+//= require jquery-1.8.2.min
+//= require jquery.countdown
+//= require jquery.fittext
+//= require jquery.nav
+//= require Backstretch
+//= require bootstrap.min
+//= require custom
+//= require waypoints
+//= require modernizr-latest
+
 //= require chosen-jquery
 //= require messages
 //= require imageselect
